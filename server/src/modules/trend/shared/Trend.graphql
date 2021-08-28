@@ -1,0 +1,7 @@
+type Trend {
+  id: ID!
+  trend: String!
+  sourceName: String
+  sourceUrl: String
+  createdAt: String!
+}

@@ -1,0 +1,14 @@
+input CreateTrendInput {
+  trend: String!
+  sourceUrl: String
+  sourceName: String
+}
+
+type createTrendResponse {
+  ok: Boolean!
+  errors: [Error!]!
+}
+
+type Mutation {
+  createTrend(input: CreateTrendInput!): createTrendResponse
+}

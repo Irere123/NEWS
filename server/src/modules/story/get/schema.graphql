@@ -1,0 +1,5 @@
+type Query {
+  allStories: [Story!]!
+  latestStories: [Story!]!
+  getStory(storyId: ID!): Story!
+}

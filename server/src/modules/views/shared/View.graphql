@@ -1,0 +1,9 @@
+type View {
+  id: ID!
+  storyId: String!
+  createdAt: String!
+  longitude: String
+  latitude: String
+  category: String
+  tag: String
+}

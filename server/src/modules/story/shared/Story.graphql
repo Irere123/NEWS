@@ -1,0 +1,11 @@
+type Story {
+  id: ID!
+  text: String!
+  title: String!
+  category: String!
+  tag: String!
+  createdAt: String!
+  updatedAt: String!
+  author: User!
+  authorId: ID!
+}

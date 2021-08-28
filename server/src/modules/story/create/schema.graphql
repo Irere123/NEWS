@@ -1,0 +1,17 @@
+input CreateStoryInput {
+  text: String!
+  title: String!
+  category: String!
+  tag: String!
+  authorId: ID!
+}
+
+type CreateStoryResponse {
+  ok: Boolean!
+  errors: [Error!]
+  story: Story
+}
+
+type Mutation {
+  createStory(story: CreateStoryInput!): CreateStoryResponse!
+}

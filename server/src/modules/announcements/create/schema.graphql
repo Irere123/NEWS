@@ -1,0 +1,14 @@
+input createAnnInput {
+  body: String!
+  userId: ID!
+}
+
+type createAnnResponse {
+  ok: Boolean!
+  errors: [Error!]!
+  announcement: Announcement
+}
+
+type Mutation {
+  createAnnouncement(input: createAnnInput!): createAnnResponse!
+}

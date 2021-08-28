@@ -1,0 +1,6 @@
+type Query {
+  countViews(storyId: String!): Int!
+  topTag: String
+  topStory: Story
+  topCategory: String
+}

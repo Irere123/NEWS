@@ -1,0 +1,11 @@
+input CreateViewInput {
+  storyId: ID!
+  longitude: String
+  latitude: String
+  tag: String
+  category: String
+}
+
+type Mutation {
+  createView(input: CreateViewInput!): Boolean!
+}

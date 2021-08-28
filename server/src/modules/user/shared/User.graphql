@@ -1,0 +1,8 @@
+type User {
+  id: ID!
+  username: String!
+  imageUrl: String
+  password: String!
+  email: String!
+  createdAt: String!
+}
