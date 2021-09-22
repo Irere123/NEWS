@@ -1,9 +1,6 @@
 import "reflect-metadata";
 import "dotenv-safe/config";
-import {
-  ApolloServerPluginLandingPageDisabled,
-  ApolloServerPluginLandingPageGraphQLPlayground,
-} from "apollo-server-core";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import express from "express";
 import { createConnection } from "typeorm";
 import { join } from "path";
@@ -31,6 +28,12 @@ const main = async () => {
     logging: !__prod__,
     synchronize: true,
     entities: [join(__dirname, "./entity/**/*.*")],
+    ssl: true,
+    extra: {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
   });
 
   const app = express();
@@ -74,11 +77,7 @@ const main = async () => {
       ],
       validate: false,
     }),
-    plugins: [
-      __prod__
-        ? ApolloServerPluginLandingPageDisabled()
-        : ApolloServerPluginLandingPageGraphQLPlayground(),
-    ],
+    plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
     context: ({ req, res }: any) => ({ req, res }),
     introspection: true,
   });
