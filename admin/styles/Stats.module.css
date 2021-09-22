@@ -1,0 +1,45 @@
+.container {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  margin-left: 50px;
+  margin-top: 10px;
+  gap: 30px;
+}
+
+.PageTitle {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 25px;
+  margin-left: 50px;
+}
+
+.Cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Card:nth-child(1) {
+  background-color: var(--color-secondary);
+  box-shadow: var(--color-shadow);
+  max-width: 400px;
+  height: 200px;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.Card:nth-child(2) {
+  background-color: var(--color-secondary);
+  box-shadow: var(--color-shadow);
+  max-width: 400px;
+  border-radius: 4px;
+  height: 250px;
+  padding: 10px;
+}
+
+.ChartContainer {
+  background-color: var(--color-secondary);
+  box-shadow: var(--color-shadow);
+  max-width: 95%;
+  height: 95%;
+  padding: 10px;
+}
