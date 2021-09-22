@@ -1,4 +1,4 @@
-.LoginContainer {
+.Container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,18 +12,51 @@
   height: 400px;
   border-radius: 5px;
   margin: 0px 10px 0px 10px;
+  border: 2px solid #000;
 }
 
-.LoginCardTitle {
+.RegisterCard {
+  background-color: var(--color-secondary);
+  box-shadow: var(--color-shadow);
+  width: 500px;
+  height: 450px;
+  border-radius: 5px;
+  margin: 0px 10px 0px 10px;
+  border: 2px solid #000;
+}
+
+.CardTitle {
   text-align: center;
+  text-transform: uppercase;
+}
+
+.LoginForm {
+  margin-top: 60px;
+}
+
+.RegisterForm {
+  margin-top: 40px;
 }
 
 .InputField {
   display: flex;
   justify-content: center;
-  border: 1px solid #000;
-  margin: 0px 10px 0px 10px;
-  height: 30px;
+  border: 2px solid #000;
+  margin: 0px 15px 0px 15px;
+  height: 40px;
+  padding: 0px 5px 0px 5px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.InputLabel {
+  margin-left: 15px;
+}
+
+.InputField > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .InputField > input {
@@ -31,4 +64,45 @@
   outline: none;
   width: 100%;
   font-size: 17px;
+  margin-left: 5px;
+}
+
+.ButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.Button {
+  background-color: #000;
+  outline: none;
+  border: none;
+  padding: 8px;
+  font-size: 18px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border-radius: 3px;
+  transition: transform 300ms ease-in;
+  cursor: pointer;
+}
+
+.Button:hover {
+  transform: scale(1.05);
+}
+
+.LoginFormLinks {
+  display: flex;
+  gap: 20px;
+  margin-left: 15px;
+  margin-bottom: 20px;
+}
+
+.LoginFormLinks > h3 {
+  margin: 0;
+}
+
+.LoginFormLinks > a {
+  text-decoration: none;
 }
