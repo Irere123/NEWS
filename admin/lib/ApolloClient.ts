@@ -1,6 +1,6 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 
-const __prod__ = process.env.NODE_ENV === "production";
+const __prod__ = process.env.NEXT_PUBLIC_NODE_ENV === "production";
 
 export const client = new ApolloClient({
   ssrMode: true,
