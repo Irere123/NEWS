@@ -59,6 +59,18 @@ export class UserResolver {
       };
     }
 
+    if (username.length < 2) {
+      return {
+        ok: false,
+        errors: [
+          {
+            field: "username",
+            message: "username must be longer than 2",
+          },
+        ],
+      };
+    }
+
     if (!email.includes("@")) {
       return {
         ok: false,

@@ -46,7 +46,6 @@
   height: 40px;
   padding: 0px 5px 0px 5px;
   margin-top: 5px;
-  margin-bottom: 20px;
 }
 
 .InputLabel {
@@ -105,4 +104,11 @@
 
 .LoginFormLinks > a {
   text-decoration: none;
+}
+
+.ErrorMessage {
+  color: red;
+  margin-top: 0;
+  margin: 0;
+  margin-left: 15px;
 }
