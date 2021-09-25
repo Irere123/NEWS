@@ -12,9 +12,9 @@ import bcrypt from "bcryptjs";
 
 import { User } from "../../entity/User";
 import { RegisterInput } from "./RegisterInput";
-import { RegisterResponse } from "./RegisterResponse";
 import { MyContext } from "../../types/MyContext";
 import { isAuth } from "../../utils/isAuth";
+import { UserResponse } from "./UserResponse";
 
 @Resolver(User)
 export class UserResolver {
@@ -37,24 +37,48 @@ export class UserResolver {
 
   @FieldResolver()
   async name(@Root() parent: User) {
-    return `${parent.firstName} ${parent.lastName}`;
+    return `${parent.username}`;
   }
 
-  @Mutation(() => RegisterResponse)
+  @Mutation(() => UserResponse)
   async register(
-    @Arg("input") { firstName, email, lastName, password, role }: RegisterInput
-  ): Promise<RegisterResponse> {
+    @Arg("input") { email, username, password, role }: RegisterInput,
+    @Ctx() { req }: MyContext
+  ): Promise<UserResponse> {
     const hashedPassword = await bcrypt.hash(password, 12);
+
+    if (password.length < 2) {
+      return {
+        ok: false,
+        errors: [
+          {
+            field: "password",
+            message: "password must be longer than 2",
+          },
+        ],
+      };
+    }
+
+    if (!email.includes("@")) {
+      return {
+        ok: false,
+        errors: [
+          {
+            field: "email",
+            message: "you must provide a valid email",
+          },
+        ],
+      };
+    }
 
     let user;
 
     try {
       const realUser = await User.create({
-        firstName,
-        lastName,
+        username,
         password: hashedPassword,
         email,
-        role
+        role,
       }).save();
 
       user = realUser;
@@ -76,34 +100,53 @@ export class UserResolver {
       }
     }
 
+    // @ts-ignore
+    req.session!.userId = user.id;
+
     return {
       ok: true,
       user,
     };
   }
 
-  @Mutation(() => User, { nullable: true })
+  @Mutation(() => UserResponse, { nullable: true })
   async login(
     @Arg("email") email: string,
     @Arg("password") password: string,
     @Ctx() ctx: MyContext
-  ): Promise<User | null> {
+  ): Promise<UserResponse | null> {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return null;
+      return {
+        ok: false,
+        errors: [
+          {
+            field: "username",
+            message: "Invalid login",
+          },
+        ],
+      };
     }
 
     const valid = await bcrypt.compare(password, user.password);
 
     if (!valid) {
-      return null;
+      return {
+        ok: false,
+        errors: [
+          {
+            field: "password",
+            message: "your password is incorrect",
+          },
+        ],
+      };
     }
 
     // @ts-ignore
     ctx.req.session!.userId = user.id;
 
-    return user;
+    return { ok: true, user };
   }
 
   @Mutation(() => Boolean)
