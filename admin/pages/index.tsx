@@ -1,32 +1,42 @@
 import Head from "next/head";
+import { useRouter, NextRouter } from "next/router";
 
-import styles from "../styles/Home.module.css";
-import { ProfileCard } from "../components/home/ProfileCard";
-import { MiddleCards } from "../components/home/MiddleCards";
-import { TopStory } from "../components/home/TopStory";
+import { useMeQuery } from "../generated/graphql";
 
-function Home() {
-  return (
-    <div>
-      <Head>
-        <title>NEWS - On the Top</title>
-      </Head>
-      <main className={styles.main}>
-        <h1 className={styles.FeedTitle}>Your Feed</h1>
-        <div role="main" className={styles.cardsHome}>
-          <div>
-            <ProfileCard />
+import styles from "../styles/Registration.module.css";
+import RegisterForm from "../components/registration/RegisterForm";
+
+function Register() {
+  const { data, loading } = useMeQuery();
+  const router: NextRouter = useRouter();
+  let body = null;
+
+  if (loading) {
+    return null;
+  } else if (!data?.me) {
+    return (
+      <div>
+        <Head>
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <title>Register - NEWS</title>
+        </Head>
+        <main className={styles.Container}>
+          <div className={styles.RegisterCard}>
+            <h2 className={styles.CardTitle}>CREATE ACCOUNT </h2>
+            <RegisterForm />
           </div>
-          <div className={styles.MiddleCards}>
-            <MiddleCards />
-          </div>
-          <div>
-            <TopStory />
-          </div>
-        </div>
-      </main>
-    </div>
-  );
+        </main>
+      </div>
+    );
+  } else {
+    router.push("/home");
+  }
+
+  return <>{body}</>;
 }
 
-export default Home;
+export default Register;

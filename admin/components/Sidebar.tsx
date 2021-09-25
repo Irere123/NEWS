@@ -18,7 +18,7 @@ export const Sidebar: React.FC = () => {
         <Image className="image" src={pic} alt="Profile Picture" />
       </div>
       <div className="sidebarIcons">
-        <Link href="/">
+        <Link href="/home">
           <a>
             <HomeOutlined />
           </a>

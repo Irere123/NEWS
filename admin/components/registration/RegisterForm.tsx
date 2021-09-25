@@ -35,7 +35,7 @@ export default function RegisterForm() {
         }
 
         if (response.data?.register.ok) {
-          router.push("/");
+          router.push("/home");
         }
       }}
     >
