@@ -2,6 +2,7 @@ import Head from "next/head";
 
 import styles from "../styles/Registration.module.css";
 import LoginForm from "../components/registration/LoginForm";
+import { withApollo } from "../lib/withApollo";
 
 function Login() {
   return (
@@ -21,4 +22,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default withApollo({ ssr: false })(Login);

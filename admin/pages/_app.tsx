@@ -1,12 +1,10 @@
 import type { AppProps } from "next/app";
-import { ApolloProvider } from "@apollo/client";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
 import "../styles/globals.css";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
-import { client } from "../lib/ApolloClient";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -19,23 +17,21 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta httpEquiv="X-UA-Compatible" content="IE=7" />
       </Head>
 
-      <ApolloProvider client={client}>
-        {!authRoute ? (
-          <div className="newsAdmin">
-            <div className="sidebar">
-              <Sidebar />
-            </div>
-            <div className="mainLayout">
-              <div className="mainLayout__header">
-                <Header />
-              </div>
-              <Component {...pageProps} />
-            </div>
+      {!authRoute ? (
+        <div className="newsAdmin">
+          <div className="sidebar">
+            <Sidebar />
           </div>
-        ) : (
-          <Component {...pageProps} />
-        )}
-      </ApolloProvider>
+          <div className="mainLayout">
+            <div className="mainLayout__header">
+              <Header />
+            </div>
+            <Component {...pageProps} />
+          </div>
+        </div>
+      ) : (
+        <Component {...pageProps} />
+      )}
     </>
   );
 }

@@ -1,8 +1,9 @@
 import Head from "next/head";
 
 import { useHelloQuery } from "../generated/graphql";
+import { withApollo } from "../lib/withApollo";
 
-export default function Chat() {
+function Chat() {
   const { data, loading } = useHelloQuery();
 
   if (loading) {
@@ -18,3 +19,5 @@ export default function Chat() {
     </div>
   );
 }
+
+export default withApollo({ ssr: true })(Chat);

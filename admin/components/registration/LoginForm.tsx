@@ -6,13 +6,14 @@ import { useRouter } from "next/router";
 import styles from "../../styles/Registration.module.css";
 import { useLoginMutation } from "../../generated/graphql";
 import { toErrorMap } from "../../lib/toErrorMap";
+import { withApollo } from "../../lib/withApollo";
 
 interface FormValues {
   email: string;
   password: string;
 }
 
-export default function LoginForm() {
+function LoginForm() {
   const [login] = useLoginMutation();
   const router = useRouter();
 
@@ -26,10 +27,13 @@ export default function LoginForm() {
 
         if (response.data?.login?.errors) {
           setErrors(toErrorMap(response.data.login.errors));
-        }
-
-        if (response.data?.login?.ok) {
-          router.push("/home");
+        } else if (response.data?.login?.user) {
+          if (typeof router.query.next === "string") {
+            router.push(router.query.next);
+          } else {
+            // worked
+            router.push("/");
+          }
         }
       }}
     >
@@ -94,3 +98,5 @@ export default function LoginForm() {
     </Formik>
   );
 }
+
+export default withApollo({ ssr: false })(LoginForm);

@@ -5,6 +5,7 @@ import { useMeQuery } from "../generated/graphql";
 
 import styles from "../styles/Registration.module.css";
 import RegisterForm from "../components/registration/RegisterForm";
+import { withApollo } from "../lib/withApollo";
 
 function Register() {
   const { data, loading } = useMeQuery();
@@ -39,4 +40,4 @@ function Register() {
   return <>{body}</>;
 }
 
-export default Register;
+export default withApollo({ ssr: false })(Register);

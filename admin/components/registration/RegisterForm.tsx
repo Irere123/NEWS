@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import styles from "../../styles/Registration.module.css";
 import { useRegisterMutation } from "../../generated/graphql";
 import { toErrorMap } from "../../lib/toErrorMap";
+import { withApollo } from "../../lib/withApollo";
 
 interface FormValues {
   username: string;
@@ -17,7 +18,7 @@ interface FormValues {
   password: string;
 }
 
-export default function RegisterForm() {
+function RegisterForm() {
   const [register] = useRegisterMutation();
   const router = useRouter();
 
@@ -113,3 +114,5 @@ export default function RegisterForm() {
     </Formik>
   );
 }
+
+export default withApollo({ ssr: false })(RegisterForm);
