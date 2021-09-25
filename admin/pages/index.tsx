@@ -40,4 +40,4 @@ function Register() {
   return <>{body}</>;
 }
 
-export default withApollo({ ssr: false })(Register);
+export default withApollo({ ssr: true })(Register);
