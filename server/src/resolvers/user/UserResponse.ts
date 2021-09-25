@@ -12,7 +12,7 @@ class FieldError {
 }
 
 @ObjectType()
-export class RegisterResponse {
+export class UserResponse {
   @Field()
   ok?: boolean;
 

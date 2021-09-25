@@ -8,6 +8,6 @@ generates:
       - "typescript-operations"
       - "typescript-react-apollo"
     config:
-      withComponent: true
+      withComponent: false
       withHooks: true
       withHOC: false

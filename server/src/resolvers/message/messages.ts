@@ -5,6 +5,7 @@ import {
   Query,
   Resolver,
   Root,
+  // Subscription,
 } from "type-graphql";
 
 import { Message } from "../../entity/Message";

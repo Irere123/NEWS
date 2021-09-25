@@ -53,6 +53,7 @@ const main = async () => {
     session({
       store: new RedisStore({
         client: redis as any,
+        disableTouch: true,
       }),
       name: "_qid",
       secret: process.env.SESSION_SECRET,
@@ -60,8 +61,8 @@ const main = async () => {
       saveUninitialized: false,
       cookie: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
+        secure: __prod__,
+        maxAge: 1000 * 60 * 60 * 24 * 365 * 11, // 11 years
       },
     }) as any
   );
