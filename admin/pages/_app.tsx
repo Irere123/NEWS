@@ -10,8 +10,7 @@ import { client } from "../lib/ApolloClient";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const authRoute =
-    router.pathname === "/register" || router.pathname === "/login";
+  const authRoute = router.pathname === "/" || router.pathname === "/login";
 
   return (
     <>
