@@ -38,6 +38,31 @@
   margin-top: 40px;
 }
 
+.LoginInputField {
+  display: flex;
+  justify-content: center;
+  border: 2px solid #000;
+  margin: 0px 15px 0px 15px;
+  height: 40px;
+  padding: 0px 5px 0px 5px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.LoginInputField > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.LoginInputField > input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 17px;
+  margin-left: 5px;
+}
+
 .InputField {
   display: flex;
   justify-content: center;

@@ -129,6 +129,18 @@ export class UserResolver {
   ): Promise<UserResponse | null> {
     const user = await User.findOne({ where: { email } });
 
+    if (password === "") {
+      return {
+        ok: false,
+        errors: [
+          {
+            field: "password",
+            message: "you must provide the password..",
+          },
+        ],
+      };
+    }
+
     if (!user) {
       return {
         ok: false,

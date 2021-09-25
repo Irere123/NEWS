@@ -1,101 +1,82 @@
 import Link from "next/link";
-import {
-  EmailOutlined,
-  LockOutlined,
-  PersonOutlined,
-} from "@mui/icons-material";
-import { Form, Formik, replace } from "formik";
+import { EmailOutlined, LockOutlined } from "@mui/icons-material";
+import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 
 import styles from "../../styles/Registration.module.css";
-import { useRegisterMutation } from "../../generated/graphql";
+import { useLoginMutation } from "../../generated/graphql";
 import { toErrorMap } from "../../lib/toErrorMap";
 
 interface FormValues {
-  username: string;
   email: string;
   password: string;
 }
 
-export default function RegisterForm() {
-  const [register] = useRegisterMutation();
+export default function LoginForm() {
+  const [login] = useLoginMutation();
   const router = useRouter();
 
   return (
     <Formik<FormValues>
-      initialValues={{ username: "", email: "", password: "" }}
+      initialValues={{ email: "", password: "" }}
       onSubmit={async (values, { setErrors }) => {
-        const response = await register({
-          variables: { input: values },
-          update: (store, { data }) => {},
+        const response = await login({
+          variables: values,
         });
 
-        if (response.data?.register.errors) {
-          setErrors(toErrorMap(response.data.register.errors));
+        if (response.data?.login?.errors) {
+          setErrors(toErrorMap(response.data.login.errors));
         }
 
-        if (response.data?.register.ok) {
+        if (response.data?.login?.ok) {
           router.push("/");
         }
       }}
     >
       {({ values, handleChange, handleSubmit, isSubmitting, errors }) => (
         <Form onSubmit={handleSubmit}>
-          <div className={styles.RegisterForm}>
-            <div>
-              <label className={styles.InputLabel}>Username</label>
-              <div className={styles.InputField}>
-                <span>
-                  <PersonOutlined />
-                </span>
-                <input
-                  type="text"
-                  value={values.username}
-                  onChange={handleChange}
-                  name="username"
-                />
-              </div>
-              {errors ? (
-                <span className={styles.ErrorMessage}>{errors.username}</span>
-              ) : null}
-            </div>
+          <div className={styles.LoginForm}>
             <div>
               <label className={styles.InputLabel}>Email</label>
-              <div className={styles.InputField}>
+              <div className={styles.LoginInputField}>
                 <span>
                   <EmailOutlined />
                 </span>
                 <input
-                  type="email"
                   value={values.email}
                   onChange={handleChange}
+                  type="email"
                   name="email"
                 />
               </div>
-              {errors ? (
+              {errors && (
                 <span className={styles.ErrorMessage}>{errors.email}</span>
-              ) : null}
+              )}
             </div>
             <div>
               <label className={styles.InputLabel}>Password</label>
-              <div className={styles.InputField}>
+              <div className={styles.LoginInputField}>
                 <span>
                   <LockOutlined />
                 </span>
                 <input
-                  type="password"
                   value={values.password}
                   onChange={handleChange}
+                  type="password"
                   name="password"
                 />
               </div>
-              {errors ? (
+              {errors && (
                 <span className={styles.ErrorMessage}>{errors.password}</span>
-              ) : null}
+              )}
             </div>
             <div className={styles.LoginFormLinks}>
-              <Link href="/login">
-                <a>Already have account ?</a>
+              <Link href="/change-password">
+                <a>Forgot Password</a>
+              </Link>
+              <h3>Or</h3>
+              <Link href="/register">
+                <a>Create new account</a>
               </Link>
             </div>
             <div className={styles.ButtonContainer}>
@@ -104,7 +85,7 @@ export default function RegisterForm() {
                 type="submit"
                 className={styles.Button}
               >
-                Sign Up
+                Login
               </button>
             </div>
           </div>

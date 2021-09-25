@@ -1,23 +1,20 @@
-import React, { useState } from "react";
-import { AppsOutlined, NotificationsOutlined } from "@mui/icons-material";
+import React from "react";
+import { useRouter, NextRouter } from "next/router";
 
-import { More } from "./dropdowns/More";
-import { Notifications } from "./dropdowns/Notifications";
+import { useMeQuery } from "../generated/graphql";
 
 export const Header: React.FC = () => {
-  const [openMore, setOpenMore] = useState(false);
-  const [openNotifications, setOpenNotifications] = useState(false);
+  const { data, loading } = useMeQuery();
+  const router: NextRouter = useRouter();
+  let body = null;
 
-  return (
-    <div className="mainLayout_header_icons">
-      <span onClick={() => setOpenNotifications(!openNotifications)}>
-        <NotificationsOutlined />
-      </span>
-      <span onClick={() => setOpenMore(!openMore)}>
-        <AppsOutlined />
-      </span>
-      {openMore && <More />}
-      {openNotifications && <Notifications />}
-    </div>
-  );
+  if (loading) {
+    return null;
+  } else if (!data?.me) {
+    router.push("/register");
+  } else {
+    return null;
+  }
+
+  return <div className="mainLayout_header_icons">{body}</div>;
 };
