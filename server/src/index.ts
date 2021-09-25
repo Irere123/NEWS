@@ -43,9 +43,7 @@ const main = async () => {
 
   app.use(
     cors({
-      origin: !__prod__
-        ? "http://localhost:3000"
-        : ["https://newsadmin.vercel.app", "https://news-irere123.vercel.app/"],
+      origin: "*",
       credentials: true,
     })
   );
