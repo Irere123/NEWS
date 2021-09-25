@@ -13,7 +13,7 @@ function Register() {
 
   if (loading) {
     return null;
-  } else if (!data?.me) {
+  } else if (data?.me === null) {
     return (
       <div>
         <Head>
