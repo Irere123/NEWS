@@ -4,7 +4,7 @@ import { NextPageContext } from "next";
 
 const createClient = (ctx: NextPageContext) =>
   new ApolloClient({
-    uri: "https://api-news-graphql.herokuapp.com/graphql",
+    uri: "http://localhost:5050/graphql",
     credentials: "include",
     headers: {
       cookie:
