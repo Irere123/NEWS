@@ -9,7 +9,7 @@ import {
 import Routes from "./Routes";
 
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
-  uri: "http://localhost:5050/graphql",
+  uri: "https://api-news-graphql.herokuapp.com/graphql",
   cache: new InMemoryCache(),
   credentials: "include",
 });
