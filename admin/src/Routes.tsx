@@ -8,11 +8,11 @@ import Login from "./pages/Login";
 import Articles from "./pages/Articles";
 import Statistics from "./pages/Statistics";
 import Maps from "./pages/Maps";
+import { AuthRoute } from "./utils/authRoute";
 
 function App() {
   const location = document.location;
-  const authRoute =
-    location.pathname === "/register" || location.pathname === "/login";
+  const authRoute = location.pathname === "/" || location.pathname === "/login";
 
   return (
     <Router>
@@ -23,16 +23,16 @@ function App() {
           </div>
           <div className="appLayout__main">
             <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/articles" exact component={Articles} />
-              <Route path="/statistics" exact component={Statistics} />
-              <Route path="/maps" exact component={Maps} />
+              <AuthRoute path="/home" exact component={Home} />
+              <AuthRoute path="/articles" exact component={Articles} />
+              <AuthRoute path="/statistics" exact component={Statistics} />
+              <AuthRoute path="/maps" exact component={Maps} />
             </Switch>
           </div>
         </div>
       ) : (
         <Switch>
-          <Route path="/register" exact component={Register} />
+          <Route path="/" exact component={Register} />
           <Route path="/login" exact component={Login} />
         </Switch>
       )}

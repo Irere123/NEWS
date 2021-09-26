@@ -4,10 +4,12 @@ import {
   PersonOutlined,
 } from "@mui/icons-material";
 import { Form, Formik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import "../ui/styles/Register&Login.css";
 import { Button } from "../ui";
+import { useRegisterMutation } from "../generated/graphql";
+import { toErrorMap } from "../utils/toErrorMap";
 
 interface FormValues {
   username: string;
@@ -15,12 +17,22 @@ interface FormValues {
   password: string;
 }
 
-function RegisterForm() {
+const RegisterForm = withRouter(({ history }) => {
+  const [register] = useRegisterMutation();
+
   return (
     <Formik<FormValues>
       initialValues={{ username: "", email: "", password: "" }}
-      onSubmit={async (values) => {
-        console.log(values);
+      onSubmit={async (values, { setErrors }) => {
+        const response = await register({
+          variables: { input: values },
+        });
+
+        if (response.data?.register.errors) {
+          setErrors(toErrorMap(response.data.register.errors));
+        } else if (response.data?.register.ok) {
+          history.push("/");
+        }
       }}
     >
       {({ values, handleChange, handleSubmit, isSubmitting, errors }) => (
@@ -99,6 +111,5 @@ function RegisterForm() {
       )}
     </Formik>
   );
-}
-
+});
 export default RegisterForm;
