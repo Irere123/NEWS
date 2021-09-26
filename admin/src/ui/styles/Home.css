@@ -1,0 +1,15 @@
+.HomePage__layout {
+  margin-left: 50px;
+}
+
+.CardsHome {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+}
+
+.MiddleCards {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
