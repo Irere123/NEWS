@@ -1,0 +1,4 @@
+fragment UserDateParts on User {
+  createdAt
+  updatedAt
+}
