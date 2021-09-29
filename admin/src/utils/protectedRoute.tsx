@@ -3,7 +3,7 @@ import { Redirect, Route, RouteComponentProps } from "react-router";
 
 import { useMeQuery } from "../generated/graphql";
 
-export const AuthRoute: React.FC<any> = ({
+export const ProtectedRoute: React.FC<any> = ({
   component: Component,
   ...props
 }) => {
@@ -17,7 +17,7 @@ export const AuthRoute: React.FC<any> = ({
 
     if (!data?.me) {
       // user not logged in
-      return <Redirect to="/" />;
+      return <Redirect to={{ pathname: "/" }} />;
     }
 
     return <Component {...routeProps} />;

@@ -1,47 +1,69 @@
-import { LockOutlined, PersonOutlined } from "@mui/icons-material";
+import { EmailOutlined, LockOutlined } from "@mui/icons-material";
 import { Form, Formik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import "../ui/styles/Register&Login.css";
 import { Button } from "../ui";
+import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
+import { toErrorMap } from "../utils/toErrorMap";
 
 interface FormValues {
-  username: string;
+  email: string;
   password: string;
 }
 
-function LoginForm() {
+const LoginForm = withRouter(({ history }) => {
+  const [login] = useLoginMutation();
+
   return (
     <Formik<FormValues>
-      initialValues={{ username: "", password: "" }}
-      onSubmit={async (values) => {
-        console.log(values);
+      initialValues={{ email: "", password: "" }}
+      onSubmit={async (values, { setErrors }) => {
+        const response = await login({
+          variables: values,
+          update: (store, { data }) => {
+            store.writeQuery<MeQuery>({
+              query: MeDocument,
+              data: {
+                __typename: "Query",
+                me: data?.login?.user,
+              },
+            });
+          },
+        });
+
+        if (response.data?.login?.errors) {
+          setErrors(toErrorMap(response.data.login.errors!));
+          return;
+        }
+
+        history.push("/home");
       }}
     >
       {({ values, handleChange, handleSubmit, isSubmitting, errors }) => (
         <Form onSubmit={handleSubmit}>
           <div className="RegisterForm">
             <div>
-              <label>Username</label>
+              <label>Email</label>
               <div className="InputField">
                 <span>
-                  <PersonOutlined />
+                  <EmailOutlined />
                 </span>
                 <input
                   type="text"
-                  value={values.username}
+                  value={values.email}
                   onChange={handleChange}
-                  name="username"
+                  name="email"
                 />
               </div>
               {errors ? (
-                <span className="ErrorMessage">{errors.username}</span>
+                <span className="ErrorMessage">{errors.email}</span>
               ) : null}
             </div>
 
             <div>
               <label>Password</label>
-              <div className="InputField">
+              <div className="InputField ">
                 <span>
                   <LockOutlined />
                 </span>
@@ -57,7 +79,7 @@ function LoginForm() {
               ) : null}
             </div>
             <div className="LoginFormLinks">
-              <Link to="/register">Create new account</Link>
+              <Link to="/">Create new account</Link>
             </div>
 
             <div className="ButtonContainer">
@@ -78,6 +100,6 @@ function LoginForm() {
       )}
     </Formik>
   );
-}
+});
 
 export default LoginForm;

@@ -146,8 +146,8 @@ export class UserResolver {
         ok: false,
         errors: [
           {
-            field: "username",
-            message: "Invalid login",
+            field: "email",
+            message: "Invalid email",
           },
         ],
       };

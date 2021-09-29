@@ -22,11 +22,7 @@ a {
 }
 
 .appLayout {
-  display: grid;
-  grid-template-columns: 60px 1fr;
   height: 100vh;
-  padding-left: 0.5rem;
-  padding-right: 1rem;
 }
 
 .appLayout__sidebar {
@@ -66,9 +62,4 @@ a {
   border-radius: 50%;
   width: 45px;
   height: 45px;
-}
-
-.appLayout__main {
-  margin-left: 2rem;
-  margin-top: 3rem;
 }
