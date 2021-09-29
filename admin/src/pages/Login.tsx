@@ -7,7 +7,7 @@ import { BigCard } from "../ui";
 const Login: React.FC = () => {
   return (
     <div className="LoginPage__layout">
-      <BigCard height="350px" width="500px" borderSize={2}>
+      <BigCard height="360px" width="500px" borderSize={2}>
         <h2 style={{ textAlign: "center" }}>LOGIN</h2>
         <div>
           <LoginForm />

@@ -8,7 +8,7 @@ import { Link, withRouter } from "react-router-dom";
 
 import "../ui/styles/Register&Login.css";
 import { Button } from "../ui";
-import { useRegisterMutation } from "../generated/graphql";
+import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 
 interface FormValues {
@@ -26,6 +26,15 @@ const RegisterForm = withRouter(({ history }) => {
       onSubmit={async (values, { setErrors }) => {
         const response = await register({
           variables: { input: values },
+          update: (store, { data }) => {
+            store.writeQuery<MeQuery>({
+              query: MeDocument,
+              data: {
+                __typename: "Query",
+                me: data?.register?.user,
+              },
+            });
+          },
         });
 
         if (response.data?.register.errors) {
