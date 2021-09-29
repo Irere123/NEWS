@@ -1,5 +1,13 @@
+.HomePage__layoutContainer {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+}
+
 .HomePage__layout {
   margin-left: 50px;
+  margin-top: 40px;
 }
 
 .CardsHome {

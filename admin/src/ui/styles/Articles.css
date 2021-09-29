@@ -1,5 +1,13 @@
+.ArticlesPage__container {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+}
+
 .ArticlesPage {
-  margin-left: 20px;
+  margin-left: 40px;
+  margin-top: 20px;
 }
 
 .ArticlesPage__CategoryButtons {

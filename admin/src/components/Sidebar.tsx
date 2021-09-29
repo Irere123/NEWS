@@ -17,7 +17,7 @@ export const Sidebar: React.FC<Props> = () => {
   const authRoute = location.pathname === "/" || location.pathname === "/login";
 
   return (
-    <>
+    <div className="appLayout__sidebar">
       {!authRoute ? (
         <>
           <div className="AppLayout__sidebarAvatar">
@@ -46,6 +46,6 @@ export const Sidebar: React.FC<Props> = () => {
           <div></div>
         </>
       )}
-    </>
+    </div>
   );
 };
